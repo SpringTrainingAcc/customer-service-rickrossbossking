@@ -38,10 +38,23 @@ public class CustomerController {
 		return customerDAO.getCustomer(cusId);
 	}
 
-	// URL - POST http://localhost:8080/customer}
+	// URL - POST http://localhost:8080/customer
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Customer addCustomer(@RequestBody Customer customer) {
 		return customerDAO.addCustomer(customer);
 	}
+	
+	// URL - DEL http://localhost:8080/customer/{cusId}
+	@RequestMapping(value = "/customer/{cusId}", method = RequestMethod.DELETE)
+	public void delCustomer(@PathVariable("cusId") String cusId) {
+		customerDAO.delCustomer(cusId);
+	}
+	
+	// URL - PUT http://localhost:8080/customer
+	@RequestMapping(value = "/customer", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Customer updateCustomer(@RequestBody Customer customer) {
+		return customerDAO.addCustomer(customer);
+	}
+	
 
 }

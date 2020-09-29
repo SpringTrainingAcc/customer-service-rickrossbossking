@@ -32,12 +32,16 @@ public class CustomerDAO {
 	public Customer getCustomer(String cusId) {
 		return cusMap.get(cusId);
 	}
+	
+	public void delCustomer(String cusId) {
+		cusMap.remove(cusId);
+	}
 
 	public Customer addCustomer(Customer cus) {
 		cusMap.put(cus.getCusId(), cus);
 		return cus;
 	}
-
+	
 	public List<Customer> getAllCustomers() {
 		Collection<Customer> c = cusMap.values();
 		List<Customer> list = new ArrayList<Customer>();
