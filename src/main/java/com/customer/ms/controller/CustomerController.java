@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.customer.ms.dao.CustomerDAO;
 import com.customer.ms.model.Customer;
+import com.customer.ms.model.CustomerM;
+import com.customer.ms.service.CustomerService;
 
 @RestController
 public class CustomerController {
 
 	@Autowired
 	private CustomerDAO customerDAO;
+	
+	@Autowired
+	private CustomerService customerService;
 
 	// URL - http://localhost:8080/hello
 	@RequestMapping("/hello")
@@ -56,5 +61,27 @@ public class CustomerController {
 		return customerDAO.addCustomer(customer);
 	}
 	
+	@RequestMapping(value = "/mongoCustomers" , method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public List<CustomerM> getMongoCustomers(){
+		List<CustomerM> list = customerService.findAll();
+		return list;
+	}
+	
+	@RequestMapping(value = "/mongoCustomer/{cusId}" , method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public CustomerM getMongoCustomers(@PathVariable("cusId") String cusId){
+		return customerService.findById(cusId);
+	}
+	
+	// URL - POST http://localhost:8080/customer
+	@RequestMapping(value = "/mongoCustomer", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public CustomerM addMongoCustomer(@RequestBody CustomerM customerM) {
+		return customerService.addCustomer(customerM);
+	}
+	
+	
+	
+	
 
 }
+
+
